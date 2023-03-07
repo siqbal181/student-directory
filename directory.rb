@@ -17,14 +17,14 @@ def input_students
 end
 
 def save_students
-    puts "Students have been saved."
-    file = File.open("students.csv", "w")
+    puts "What file would you like to save the list into?"
+    file_input = gets.chomp
+    file = File.open(file_input, "w")
     @students.each do |student|
-        # Convert the hash into a new array so we can convert into strings. [ [hash element:name], [hash element: cohort] ]
         student_data = [student[:name], student[:cohort]]
-        # refactored to join and puts in one line (before we saved student_data.join(",") into a variable)
         file.puts student_data.join(",")
     end
+    puts "Students have been saved."
     file.close
 end
 
