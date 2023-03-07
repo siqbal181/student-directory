@@ -1,11 +1,16 @@
 @students = []
 
+def add_students(name, cohort)
+    @students << {name: name, cohort: cohort.to_sym}
+end
+
 def input_students
     puts "Please enter the names of students"
     puts "To finish, just hit return twice"
     name = STDIN.gets.chomp
     while !name.empty? do
-        @students << {name: name, cohort: :november}
+        #@students << {name: name, cohort: :november}
+        add_students(name, :november)
         puts "Now we have #{@students.count} students"
         name = STDIN.gets.chomp
     end
@@ -24,12 +29,13 @@ def save_students
 end
 
 def load_students(filename = "students.csv")
-    puts "Students have been loaded in the file."
+    @students = []
     file = File.open(filename, "r")
     file.readlines.each do |line|
         name, cohort = line.chomp.split(",")
-        @students << {name: name, cohort: cohort.to_sym}
+        add_students(name, cohort)
     end
+    puts "#{@students.length} students have been loaded in the file."
     file.close
 end
 
