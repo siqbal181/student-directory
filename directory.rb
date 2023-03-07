@@ -7,28 +7,24 @@ def input_students
     while !name.empty? do
         @students << {name: name, cohort: :november}
         puts "Now we have #{@students.count} students"
-        # get another name from the user
         name = STDIN.gets.chomp
     end
 end
 
 def save_students
-    # open file for writing
+    puts "Students have been saved."
     file = File.open("students.csv", "w")
-    # iterate over the array of students
     @students.each do |student|
-        # Below is done to convert the hash into a new array so eventually we can convert into strings. so its [ [hash element:name], [hash element: cohort] ]
+        # Convert the hash into a new array so we can convert into strings. [ [hash element:name], [hash element: cohort] ]
         student_data = [student[:name], student[:cohort]]
-        # we then based on the array use join(",")
-        csv_line = student_data.join(",")
-        # we need to puts to the file, so it writes to the file and not to the screen
-        file.puts csv_line
+        # refactored to join and puts in one line (before we saved student_data.join(",") into a variable)
+        file.puts student_data.join(",")
     end
-    # every time we open a file we need to close it
     file.close
 end
 
 def load_students(filename = "students.csv")
+    puts "Students have been loaded in the file."
     file = File.open(filename, "r")
     file.readlines.each do |line|
         name, cohort = line.chomp.split(",")
@@ -40,7 +36,7 @@ end
 def interactive_menu
     loop do
         print_menu
-        process(STDIN.gets.chomp)
+        menu_decision(STDIN.gets.chomp)
     end
 end
 
@@ -58,7 +54,7 @@ def show_students
     print_footer
 end
 
-def process(selection)
+def menu_decision(selection)
     case selection
     when "1"
         input_students
@@ -90,16 +86,19 @@ def print_footer
     puts "Overall we have #{@students.count} great students"
 end
 
-interactive_menu
-
 def try_load_students
     filename = ARGV.first # first argument from the command line
-    return if filename.nil? # get out of the method if it isn't given
-    if File.exist?(filename)
-        load_students(filename)
-        puts "Loaded #{@students.count} from #{filename}"
-    else
-        puts "Sorry #{filename} doesn't exist"
-        exit
+    if filename.nil?
+      filename = "students.csv" # use default filename if none is provided
     end
-end
+    if File.exist?(filename)
+      load_students(filename)
+      puts "Loaded #{@students.count} from #{filename}"
+    else
+      puts "Sorry, #{filename} doesn't exist."
+      exit
+    end
+  end  
+  
+  try_load_students
+  interactive_menu
