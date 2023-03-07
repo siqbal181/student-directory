@@ -170,10 +170,15 @@ It's Ruby code but it has some typos. Copy it to a local file and open it in VS 
 without syntax highlighting. To do this, change the language of the file from 'Ruby' to 'Plain Text'
 by clicking the blue word 'Ruby' in the bottom right corner and searching for 'plain text'.
 
+12. What happens if the user doesn't enter any students? It will try to print an empty list.
+    How can you use an if statement (Control Flow) to only print the list if there is at least one student in there?
 
-
-
-
-
+def print(students)
+  if students.length == 0
+    puts "No students in directory"
+  else
+  print_students = students.each {|student| puts "#{student[:name]}"}
+  end
+end
 =end
 
