@@ -26,6 +26,7 @@
 5. The filename we use to save and load data (menu items 3 and 4) is hardcoded.
    Make the script more flexible by asking for the filename if the user chooses these
    menu items.
+   DONE on main directory
 
 6. We are opening and closing the files manually. Read the documentation of the File class
    to find out how to use a code block (do...end) to access a file, so that we didn't have to
@@ -33,26 +34,3 @@
    Refactor the code to use a code block.
 
 =end
-
-def save_students
-    file = File.open("students.csv", "w")
-    @students.each do |student|
-        student_data = [student[:name], student[:cohort]]
-        file.puts student_data.join(",")
-    end
-    puts "Students have been saved."
-    file.close
-end
-
-# Ask what file the user would like to save the list to
-def save_students
-    puts "What file would you like to save the list into?"
-    file_input = gets.chomp
-    file = File.open(file_input, "w")
-    @students.each do |student|
-        student_data = [student[:name], student[:cohort]]
-        file.puts student_data.join(",")
-    end
-    puts "Students have been saved."
-    file.close
-end

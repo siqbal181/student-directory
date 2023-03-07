@@ -28,17 +28,27 @@ def save_students
     file.close
 end
 
-def load_students(filename = "students.csv")
+def load_students
     @students = []
-    file = File.open(filename, "r")
-    file.readlines.each do |line|
-        name, cohort = line.chomp.split(",")
-        add_students(name, cohort)
+    puts "What file would you like to load?"
+    file_input = gets.chomp
+  
+    if File.exist?(file_input)
+      File.open(file_input, "r") do |file|
+        file.readlines.each do |line|
+          name, cohort = line.chomp.split(",")
+          # Add the student data to the list
+          # The add_students method needs to be defined somewhere else in the code
+          add_students(name, cohort)
+        end
+      end
+      puts "#{@students.length} students have been loaded from #{file_input}."
+    else
+      puts "Sorry, #{file_input} doesn't exist."
+      exit
     end
-    puts "#{@students.length} students have been loaded in the file."
-    file.close
-end
-
+  end
+  
 def interactive_menu
     loop do
         print_menu
@@ -49,7 +59,7 @@ end
 def print_menu
     puts "1. Input the students"
     puts "2. Show the students"
-    puts "3. Save the list to students.csv"
+    puts "3. Save the list a file"
     puts "4. Load the list from students.csv"
     puts "9. Exit"
 end
@@ -106,5 +116,5 @@ def try_load_students
     end
   end  
   
-  try_load_students
+  #try_load_students
   interactive_menu
