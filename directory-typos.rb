@@ -1,4 +1,3 @@
-=begin
 def input_students
   puts "Please enter the names of the students"
   puts "To finish, just hit return twice"
@@ -38,30 +37,3 @@ students = input_students
 print_header
 print(students)
 print_footer(students)
-=end
-
-def input_students
-    puts "Please enter the names of students"
-    puts "To finish, just hit return twice"
-    students = []
-    name = gets.chomp
-    while !name.empty? do
-        students << {name: name, cohort: :november}
-        puts "Now we have #{students.count} students"
-        # get another name from the user
-        name = gets.chomp
-    end
-    students
-end
-
-def print(students)
-  if students.length == 0
-    puts "No students in directory"
-  else
-  print_students = students.each {|student| puts "#{student[:name]}"}
-  end
-end
-
-students = input_students
-print(students)
-
