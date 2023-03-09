@@ -1,4 +1,5 @@
 @students = []
+require 'csv'
 
 def add_students(name, cohort)
     @students << {name: name, cohort: cohort.to_sym}
@@ -29,25 +30,18 @@ def save_students
 end
 
 def load_students
-    @students = []
     puts "What file would you like to load?"
     file_input = gets.chomp
-  
     if File.exist?(file_input)
-      File.open(file_input, "r") do |file|
-        file.readlines.each do |line|
-          name, cohort = line.chomp.split(",")
-          # Add the student data to the list
-          # The add_students method needs to be defined somewhere else in the code
-          add_students(name, cohort)
+        CSV.foreach(file_input, col_sep: '|') do |row|
+            puts row
         end
-      end
-      puts "#{@students.length} students have been loaded from #{file_input}."
     else
       puts "Sorry, #{file_input} doesn't exist."
       exit
     end
-  end
+end
+
   
 def interactive_menu
     loop do

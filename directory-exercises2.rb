@@ -33,4 +33,16 @@
    close it explicitly (it will be closed automatically when the block finishes).
    Refactor the code to use a code block.
 
+7. We are de-facto using CSV format to store data. However, Ruby includes a library to work
+   with the CSV files that we could use instead of working directly with the files.
+   Refactor the code to use this library.
+   DONE - On the load students main directory
+
+
 =end
+
+require 'csv'
+
+CSV.foreach("students.csv", col_sep: ',') do |row|
+    puts row
+end
