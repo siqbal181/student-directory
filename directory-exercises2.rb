@@ -1,4 +1,3 @@
-
 =begin
 1. After we added the code to load the students from file, we ended up with adding the students
    to @students in two places. The lines in load_students() and input_students() are almost the same.
@@ -38,11 +37,29 @@
    Refactor the code to use this library.
    DONE - On the load students main directory
 
+    CSV.foreach("students.csv", col_sep: ',') do |row|
+    puts row
+    
+8. Write a short program that reads its own source code (search Stack Overflow to
+   find out how to get the name of the currently executed file) and prints it on the screen.
+
+   - Create a variable for the current filename, access current execute file using __FILE__
+   filename = __FILE__
+   - Use File.open to open the file and pass in the variable for current file and "r" for read
+   - Iterate over the file with do |file|
+   File.open(filename, "r") do |file|
+   - Then you iterate over each line of the file using each_line do |line|
+   file.each_line do |line|
+   - next you puts each line and close the method
+         puts line
+   end
+end
+
+filename = __FILE__
+File.open(filename, "r") do |file|
+   file.each_line do |line|
+      puts line
+   end
+end
 
 =end
-
-require 'csv'
-
-CSV.foreach("students.csv", col_sep: ',') do |row|
-    puts row
-end
